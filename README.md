@@ -1,1 +1,2 @@
 # vinodhini-013-SmartSDLC-AI-Enhanced-Software-Development-Lifecycle
+A Software Development Life Cycle (SDLC) is a method to plan, create, and test high-quality software/products. The goal of the SDLC is to create high-quality software that meets or exceeds customer expectations while finishing on schedule and under budget. It comprises a thorough plan outlining how to create, maintain, replace, and modify or improve particular software. The life cycle outlines an approach for enhancing both the general software development process and the quality of the final product.

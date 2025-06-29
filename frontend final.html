@@ -1,0 +1,1208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SmartSDLC - AI-Enhanced Software Development Lifecycle</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            color: #333;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+        }
+
+        .header h1 {
+            font-size: 2.5rem;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 10px;
+        }
+
+        .header p {
+            font-size: 1.1rem;
+            color: #666;
+            margin-bottom: 20px;
+        }
+
+        .model-info {
+            display: inline-block;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+
+        .main-content {
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+
+        .sidebar {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 25px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+            height: fit-content;
+        }
+
+        .sidebar h3 {
+            color: #667eea;
+            margin-bottom: 20px;
+            font-size: 1.3rem;
+            border-bottom: 2px solid #667eea;
+            padding-bottom: 10px;
+        }
+
+        .feature-list {
+            list-style: none;
+        }
+
+        .feature-list li {
+            margin-bottom: 15px;
+            padding: 12px;
+            background: linear-gradient(135deg, #f8f9ff, #e8ecff);
+            border-radius: 10px;
+            border-left: 4px solid #667eea;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .feature-list li:hover {
+            transform: translateX(5px);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.2);
+        }
+
+        .feature-list li.active {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            border-left-color: white;
+        }
+
+        .main-panel {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+        }
+
+        .panel {
+            display: none;
+        }
+
+        .panel.active {
+            display: block;
+            animation: fadeIn 0.5s ease-in;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .panel h2 {
+            color: #667eea;
+            margin-bottom: 20px;
+            font-size: 1.8rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .emoji {
+            font-size: 1.5rem;
+        }
+
+        .input-group {
+            margin-bottom: 20px;
+        }
+
+        .input-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #555;
+        }
+
+        .input-group textarea,
+        .input-group input,
+        .input-group select {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #e1e5e9;
+            border-radius: 10px;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            background: #f8f9ff;
+        }
+
+        .input-group textarea:focus,
+        .input-group input:focus,
+        .input-group select:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+
+        .input-group textarea {
+            min-height: 120px;
+            resize: vertical;
+        }
+
+        .btn {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 10px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(102, 126, 234, 0.3);
+        }
+
+        .btn:active {
+            transform: translateY(0);
+        }
+
+        .output-area {
+            margin-top: 20px;
+            padding: 20px;
+            background: linear-gradient(135deg, #f8f9ff, #e8ecff);
+            border-radius: 10px;
+            border-left: 4px solid #667eea;
+            min-height: 100px;
+            white-space: pre-wrap;
+            font-family: 'Courier New', monospace;
+        }
+
+        .loading {
+            display: none;
+            text-align: center;
+            padding: 20px;
+        }
+
+        .spinner {
+            border: 3px solid #f3f3f3;
+            border-top: 3px solid #667eea;
+            border-radius: 50%;
+            width: 30px;
+            height: 30px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 10px;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .features-overview {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin-top: 40px;
+        }
+
+        .feature-card {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 25px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.15);
+        }
+
+        .feature-card .emoji {
+            font-size: 3rem;
+            margin-bottom: 15px;
+            display: block;
+        }
+
+        .feature-card h3 {
+            color: #667eea;
+            margin-bottom: 10px;
+            font-size: 1.2rem;
+        }
+
+        .feature-card p {
+            color: #666;
+            line-height: 1.6;
+        }
+
+        .code-block {
+            background: #1e1e1e;
+            color: #d4d4d4;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 15px 0;
+            overflow-x: auto;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9rem;
+            line-height: 1.4;
+        }
+
+        .file-upload {
+            border: 2px dashed #667eea;
+            border-radius: 10px;
+            padding: 30px;
+            text-align: center;
+            background: linear-gradient(135deg, #f8f9ff, #e8ecff);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .file-upload:hover {
+            border-color: #764ba2;
+            transform: scale(1.02);
+        }
+
+        .file-upload input {
+            display: none;
+        }
+
+        @media (max-width: 768px) {
+            .main-content {
+                grid-template-columns: 1fr;
+            }
+            
+            .header h1 {
+                font-size: 2rem;
+            }
+            
+            .container {
+                padding: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🚀 SmartSDLC</h1>
+            <p>AI-Enhanced Software Development Lifecycle Platform</p>
+            <div class="model-info">Powered by IBM Granite 3.3-2B Instruct Model</div>
+        </div>
+
+        <div class="main-content">
+            <div class="sidebar">
+                <h3>🎯 Core Features</h3>
+                <ul class="feature-list">
+                    <li class="active" data-panel="requirements">
+                        📋 Intelligent Requirement Structuring
+                    </li>
+                    <li data-panel="development">
+                        ⚡ Automated Development & Testing
+                    </li>
+                    <li data-panel="assistant">
+                        🤖 AI Assistant & Documentation
+                    </li>
+                </ul>
+            </div>
+
+            <div class="main-panel">
+                <!-- Requirements Panel -->
+                <div class="panel active" id="requirements">
+                    <h2><span class="emoji">📋</span>Intelligent Requirement Structuring</h2>
+                    <p>Transform unstructured documents into actionable, classified user stories with seamless traceability across SDLC phases.</p>
+                    
+                    <div class="input-group">
+                        <label>Upload Requirements Document</label>
+                        <div class="file-upload" onclick="document.getElementById('req-file').click()">
+                            <input type="file" id="req-file" accept=".txt,.docx,.pdf">
+                            📁 Click to upload or drag & drop your requirements document
+                        </div>
+                    </div>
+
+                    <div class="input-group">
+                        <label>Or Enter Requirements Text</label>
+                        <textarea id="requirements-text" placeholder="Paste your unstructured requirements here...
+
+Example:
+Our e-commerce platform needs user login functionality. Users should be able to register with email, reset passwords, and maintain shopping carts. We also need admin dashboard for inventory management and order tracking. The system should handle payments securely and send email notifications."></textarea>
+                    </div>
+
+                    <div class="input-group">
+                        <label>Project Type</label>
+                        <select id="project-type">
+                            <option value="web-app">Web Application</option>
+                            <option value="mobile-app">Mobile Application</option>
+                            <option value="desktop-app">Desktop Application</option>
+                            <option value="api">API/Backend Service</option>
+                            <option value="data-science">Data Science Project</option>
+                        </select>
+                    </div>
+
+                    <button class="btn" onclick="processRequirements()">
+                        🔄 Structure Requirements
+                    </button>
+
+                    <div class="loading" id="req-loading">
+                        <div class="spinner"></div>
+                        <p>Analyzing and structuring requirements...</p>
+                    </div>
+
+                    <div class="output-area" id="req-output">
+                        Generated user stories and structured requirements will appear here...
+                    </div>
+                </div>
+
+                <!-- Development Panel -->
+                <div class="panel" id="development">
+                    <h2><span class="emoji">⚡</span>Automated Development & Testing Support</h2>
+                    <p>Accelerate coding, debugging, and test case generation using AI to reduce manual effort and ensure higher software quality.</p>
+                    
+                    <div class="input-group">
+                        <label>Development Task</label>
+                        <select id="dev-task">
+                            <option value="code-generation">Code Generation</option>
+                            <option value="debugging">Code Debugging</option>
+                            <option value="testing">Test Case Generation</option>
+                            <option value="optimization">Code Optimization</option>
+                            <option value="refactoring">Code Refactoring</option>
+                        </select>
+                    </div>
+
+                    <div class="input-group">
+                        <label>Programming Language</label>
+                        <select id="programming-language">
+                            <option value="python">Python</option>
+                            <option value="javascript">JavaScript</option>
+                            <option value="java">Java</option>
+                            <option value="csharp">C#</option>
+                            <option value="cpp">C++</option>
+                            <option value="go">Go</option>
+                            <option value="rust">Rust</option>
+                        </select>
+                    </div>
+
+                    <div class="input-group">
+                        <label>Code Description / Existing Code</label>
+                        <textarea id="code-input" placeholder="Describe the functionality you want to implement or paste existing code for debugging/optimization...
+
+Example for Code Generation:
+Create a REST API endpoint for user authentication with JWT tokens
+
+Example for Debugging:
+def calculate_total(items):
+    total = 0
+    for item in items:
+        total += item.price * item.quantity
+    return total
+
+# This function sometimes returns incorrect totals"></textarea>
+                    </div>
+
+                    <button class="btn" onclick="processDevelopment()">
+                        🚀 Generate Solution
+                    </button>
+
+                    <div class="loading" id="dev-loading">
+                        <div class="spinner"></div>
+                        <p>Generating development solution...</p>
+                    </div>
+
+                    <div class="output-area" id="dev-output">
+                        Generated code, debugging suggestions, or test cases will appear here...
+                    </div>
+                </div>
+
+                <!-- Assistant Panel -->
+                <div class="panel" id="assistant">
+                    <h2><span class="emoji">🤖</span>AI Assistant & Documentation</h2>
+                    <p>Interactive Q&A and auto-generated human-readable documentation for complex code, making onboarding and maintenance effortless.</p>
+                    
+                    <div class="input-group">
+                        <label>Assistant Mode</label>
+                        <select id="assistant-mode">
+                            <option value="qa">Q&A Assistant</option>
+                            <option value="documentation">Code Documentation</option>
+                            <option value="explanation">Code Explanation</option>
+                            <option value="best-practices">Best Practices Review</option>
+                        </select>
+                    </div>
+
+                    <div class="input-group">
+                        <label>Your Question or Code</label>
+                        <textarea id="assistant-input" placeholder="Ask a question or paste code for documentation/explanation...
+
+Example Questions:
+- How do I implement OAuth2 authentication in Flask?
+- What are the best practices for error handling in Node.js?
+- Explain the SOLID principles with examples
+
+Example Code for Documentation:
+class UserManager:
+    def __init__(self, db_connection):
+        self.db = db_connection
+        self.cache = {}
+    
+    def get_user(self, user_id):
+        if user_id in self.cache:
+            return self.cache[user_id]
+        user = self.db.query('SELECT * FROM users WHERE id = ?', user_id)
+        self.cache[user_id] = user
+        return user"></textarea>
+                    </div>
+
+                    <button class="btn" onclick="processAssistant()">
+                        💬 Get AI Assistance
+                    </button>
+
+                    <div class="loading" id="assistant-loading">
+                        <div class="spinner"></div>
+                        <p>AI assistant is thinking...</p>
+                    </div>
+
+                    <div class="output-area" id="assistant-output">
+                        AI assistant responses will appear here...
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="features-overview">
+            <div class="feature-card">
+                <span class="emoji">🎯</span>
+                <h3>Smart Requirements Analysis</h3>
+                <p>Automatically parse and structure unstructured requirements into actionable user stories with proper categorization and priority assignment.</p>
+            </div>
+            <div class="feature-card">
+                <span class="emoji">⚡</span>
+                <h3>AI-Powered Development</h3>
+                <p>Generate high-quality code, debug existing implementations, and create comprehensive test suites with intelligent AI assistance.</p>
+            </div>
+            <div class="feature-card">
+                <span class="emoji">📚</span>
+                <h3>Intelligent Documentation</h3>
+                <p>Auto-generate comprehensive documentation, provide code explanations, and offer contextual development guidance.</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Panel switching functionality
+        document.querySelectorAll('.feature-list li').forEach(item => {
+            item.addEventListener('click', function() {
+                // Remove active class from all items and panels
+                document.querySelectorAll('.feature-list li').forEach(li => li.classList.remove('active'));
+                document.querySelectorAll('.panel').forEach(panel => panel.classList.remove('active'));
+                
+                // Add active class to clicked item
+                this.classList.add('active');
+                
+                // Show corresponding panel
+                const panelId = this.getAttribute('data-panel');
+                document.getElementById(panelId).classList.add('active');
+            });
+        });
+
+        // File upload handling
+        document.getElementById('req-file').addEventListener('change', function(e) {
+            const fileName = e.target.files[0]?.name;
+            if (fileName) {
+                const uploadArea = document.querySelector('.file-upload');
+                uploadArea.innerHTML = `📁 Selected: ${fileName}`;
+            }
+        });
+
+        // Simulated AI processing functions
+        async function processRequirements() {
+            const loading = document.getElementById('req-loading');
+            const output = document.getElementById('req-output');
+            const text = document.getElementById('requirements-text').value;
+            const projectType = document.getElementById('project-type').value;
+            
+            if (!text.trim()) {
+                alert('Please enter requirements text or upload a document.');
+                return;
+            }
+            
+            loading.style.display = 'block';
+            output.textContent = '';
+            
+            // Simulate API call delay
+            await new Promise(resolve => setTimeout(resolve, 3000));
+            
+            loading.style.display = 'none';
+            
+            // Simulated structured output
+            output.innerHTML = `
+<div style="color: #667eea; font-weight: bold; margin-bottom: 15px;">📋 STRUCTURED REQUIREMENTS ANALYSIS</div>
+
+<div style="margin-bottom: 20px;">
+<strong>🎯 USER STORIES:</strong>
+
+<div style="background: #f0f4f8; padding: 15px; border-radius: 8px; margin: 10px 0;">
+<strong>Story 1:</strong> User Authentication
+<br><strong>As a</strong> user, <strong>I want to</strong> register and login with my email, <strong>so that</strong> I can access my personalized account.
+<br><strong>Acceptance Criteria:</strong>
+• Email validation and unique constraint
+• Password reset functionality
+• Secure session management
+<br><strong>Priority:</strong> High | <strong>Effort:</strong> 5 points
+</div>
+
+<div style="background: #f0f4f8; padding: 15px; border-radius: 8px; margin: 10px 0;">
+<strong>Story 2:</strong> Shopping Cart Management
+<br><strong>As a</strong> customer, <strong>I want to</strong> add items to my cart and modify quantities, <strong>so that</strong> I can purchase multiple items.
+<br><strong>Acceptance Criteria:</strong>
+• Add/remove items from cart
+• Update quantities
+• Persist cart across sessions
+<br><strong>Priority:</strong> High | <strong>Effort:</strong> 8 points
+</div>
+
+<div style="background: #f0f4f8; padding: 15px; border-radius: 8px; margin: 10px 0;">
+<strong>Story 3:</strong> Admin Dashboard
+<br><strong>As an</strong> administrator, <strong>I want to</strong> manage inventory and track orders, <strong>so that</strong> I can efficiently run the business.
+<br><strong>Acceptance Criteria:</strong>
+• Inventory CRUD operations
+• Order status tracking
+• Analytics dashboard
+<br><strong>Priority:</strong> Medium | <strong>Effort:</strong> 13 points
+</div>
+</div>
+
+<div style="margin-bottom: 20px;">
+<strong>🏗️ TECHNICAL REQUIREMENTS:</strong>
+• Secure payment processing integration
+• Email notification system
+• User session management
+• Database design for users, products, orders
+• Admin authentication and authorization
+</div>
+
+<div>
+<strong>📊 PROJECT ESTIMATION:</strong>
+• Total Story Points: 26
+• Estimated Duration: 4-6 sprints
+• Team Size Recommendation: 3-4 developers
+• Risk Level: Medium (payment integration complexity)
+</div>`;
+        }
+
+        async function processDevelopment() {
+            const loading = document.getElementById('dev-loading');
+            const output = document.getElementById('dev-output');
+            const task = document.getElementById('dev-task').value;
+            const language = document.getElementById('programming-language').value;
+            const input = document.getElementById('code-input').value;
+            
+            if (!input.trim()) {
+                alert('Please provide code description or existing code.');
+                return;
+            }
+            
+            loading.style.display = 'block';
+            output.textContent = '';
+            
+            await new Promise(resolve => setTimeout(resolve, 2500));
+            
+            loading.style.display = 'none';
+            
+            // Simulated code generation based on task type
+            let result = '';
+            
+            if (task === 'code-generation') {
+                result = `
+<div style="color: #667eea; font-weight: bold; margin-bottom: 15px;">⚡ GENERATED CODE SOLUTION</div>
+
+<div style="background: #1e1e1e; color: #d4d4d4; padding: 20px; border-radius: 10px; margin: 15px 0; overflow-x: auto; font-family: 'Courier New', monospace;">
+<div style="color: #569cd6;"># JWT Authentication API Endpoint</div>
+<div style="color: #dcdcaa;">from</div> flask <div style="color: #dcdcaa;">import</div> Flask, request, jsonify
+<div style="color: #dcdcaa;">from</div> werkzeug.security <div style="color: #dcdcaa;">import</div> check_password_hash
+<div style="color: #dcdcaa;">import</div> jwt
+<div style="color: #dcdcaa;">import</div> datetime
+
+app = Flask(<div style="color: #ce9178;">__name__</div>)
+app.config[<div style="color: #ce9178;">'SECRET_KEY'</div>] = <div style="color: #ce9178;">'your-secret-key'</div>
+
+<div style="color: #dcdcaa;">@app.route</div>(<div style="color: #ce9178;">'/api/auth/login'</div>, methods=[<div style="color: #ce9178;">'POST'</div>])
+<div style="color: #dcdcaa;">def</div> <div style="color: #dcdcaa;">login</div>():
+    data = request.get_json()
+    email = data.get(<div style="color: #ce9178;">'email'</div>)
+    password = data.get(<div style="color: #ce9178;">'password'</div>)
+    
+    <div style="color: #569cd6;"># Validate user credentials (implement your user lookup)</div>
+    user = authenticate_user(email, password)
+    
+    <div style="color: #c586c0;">if</div> user:
+        token = jwt.encode({
+            <div style="color: #ce9178;">'user_id'</div>: user.id,
+            <div style="color: #ce9178;">'email'</div>: user.email,
+            <div style="color: #ce9178;">'exp'</div>: datetime.datetime.utcnow() + datetime.timedelta(hours=<div style="color: #b5cea8;">24</div>)
+        }, app.config[<div style="color: #ce9178;">'SECRET_KEY'</div>], algorithm=<div style="color: #ce9178;">'HS256'</div>)
+        
+        <div style="color: #c586c0;">return</div> jsonify({
+            <div style="color: #ce9178;">'success'</div>: <div style="color: #569cd6;">True</div>,
+            <div style="color: #ce9178;">'token'</div>: token,
+            <div style="color: #ce9178;">'user'</div>: {<div style="color: #ce9178;">'id'</div>: user.id, <div style="color: #ce9178;">'email'</div>: user.email}
+        }), <div style="color: #b5cea8;">200</div>
+    
+    <div style="color: #c586c0;">return</div> jsonify({<div style="color: #ce9178;">'error'</div>: <div style="color: #ce9178;">'Invalid credentials'</div>}), <div style="color: #b5cea8;">401</div>
+</div>
+
+<div style="margin-top: 20px;">
+<strong>🛡️ SECURITY CONSIDERATIONS:</strong>
+• Use environment variables for secret keys
+• Implement rate limiting for login attempts
+• Add password strength validation
+• Consider refresh token implementation
+• Use HTTPS in production
+
+<strong>📋 NEXT STEPS:</strong>
+• Implement user database model
+• Add password hashing with bcrypt
+• Create token validation middleware
+• Add proper error handling and logging
+</div>`;
+            } else if (task === 'debugging') {
+                result = `
+<div style="color: #667eea; font-weight: bold; margin-bottom: 15px;">🔍 CODE DEBUGGING ANALYSIS</div>
+
+<div style="background: #fff3cd; border: 1px solid #ffeaa7; padding: 15px; border-radius: 8px; margin: 15px 0;">
+<strong>⚠️ ISSUES IDENTIFIED:</strong>
+<br>1. Missing input validation - function doesn't handle None or empty items
+<br>2. Potential AttributeError if items don't have 'price' or 'quantity' attributes
+<br>3. No error handling for invalid data types
+</div>
+
+<div style="background: #1e1e1e; color: #d4d4d4; padding: 20px; border-radius: 10px; margin: 15px 0; overflow-x: auto; font-family: 'Courier New', monospace;">
+<div style="color: #569cd6;"># FIXED VERSION</div>
+<div style="color: #dcdcaa;">def</div> <div style="color: #dcdcaa;">calculate_total</div>(items):
+    <div style="color: #ce9178;">"""Calculate total cost for a list of items."""</div>
+    <div style="color: #c586c0;">if</div> <div style="color: #c586c0;">not</div> items:
+        <div style="color: #c586c0;">return</div> <div style="color: #b5cea8;">0.0</div>
+    
+    total = <div style="color: #b5cea8;">0.0</div>
+    
+    <div style="color: #c586c0;">for</div> item <div style="color: #c586c0;">in</div> items:
+        <div style="color: #c586c0;">try</div>:
+            <div style="color: #569cd6;"># Validate item has required attributes</div>
+            <div style="color: #c586c0;">if</div> <div style="color: #c586c0;">not</div> hasattr(item, <div style="color: #ce9178;">'price'</div>) <div style="color: #c586c0;">or</div> <div style="color: #c586c0;">not</div> hasattr(item, <div style="color: #ce9178;">'quantity'</div>):
+                <div style="color: #c586c0;">continue</div>  <div style="color: #569cd6;"># Skip invalid items</div>
+            
+            <div style="color: #569cd6;"># Ensure numeric values</div>
+            price = float(item.price) <div style="color: #c586c0;">if</div> item.price <div style="color: #c586c0;">is</div> <div style="color: #c586c0;">not</div> <div style="color: #569cd6;">None</div> <div style="color: #c586c0;">else</div> <div style="color: #b5cea8;">0.0</div>
+            quantity = int(item.quantity) <div style="color: #c586c0;">if</div> item.quantity <div style="color: #c586c0;">is</div> <div style="color: #c586c0;">not</div> <div style="color: #569cd6;">None</div> <div style="color: #c586c0;">else</div> <div style="color: #b5cea8;">0</div>
+            
+            total += price * quantity
+            
+        <div style="color: #c586c0;">except</div> (ValueError, TypeError) <div style="color: #c586c0;">as</div> e:
+            <div style="color: #569cd6;"># Log error and continue with next item</div>
+            <div style="color: #dcdcaa;">print</div>(<div style="color: #ce9178;">f"Error processing item: {e}"</div>)
+            <div style="color: #c586c0;">continue</div>
+    
+    <div style="color: #c586c0;">return</div> round(total, <div style="color: #b5cea8;">2</div>)  <div style="color: #569cd6;"># Round to 2 decimal places</div>
+</div>
+
+<div style="margin-top: 20px;">
+<strong>✅ IMPROVEMENTS MADE:</strong>
+• Added input validation for empty/None items
+• Implemented attribute checking before access
+• Added type conversion with error handling
+• Included proper exception handling
+• Added precision rounding for monetary values
+
+<strong>🧪 SUGGESTED TESTS:</strong>
+• Test with empty list
+• Test with items having missing attributes
+• Test with invalid data types
+• Test with negative values
+• Test with None values
+</div>`;
+            } else if (task === 'testing') {
+                result = `
+<div style="color: #667eea; font-weight: bold; margin-bottom: 15px;">🧪 GENERATED TEST CASES</div>
+
+<div style="background: #1e1e1e; color: #d4d4d4; padding: 20px; border-radius: 10px; margin: 15px 0; overflow-x: auto; font-family: 'Courier New', monospace;">
+<div style="color: #dcdcaa;">import</div> unittest
+<div style="color: #dcdcaa;">from</div> unittest.mock <div style="color: #dcdcaa;">import</div> Mock
+
+<div style="color: #dcdcaa;">class</div> <div style="color: #4ec9b0;">TestCalculateTotal</div>(unittest.TestCase):
+    
+    <div style="color: #dcdcaa;">def</div> <div style="color: #dcdcaa;">setUp</div>(<div style="color: #9cdcfe;">self</div>):
+        <div style="color: #569cd6;">"""Set up test fixtures before each test method."""</div>
+        <div style="color: #9cdcfe;">self</div>.mock_item = Mock()
+        <div style="color: #9cdcfe;">self</div>.mock_item.price = <div style="color: #b5cea8;">10.50</div>
+        <div style="color: #9cdcfe;">self</div>.mock_item.quantity = <div style="color: #b5cea8;">2</div>
+    
+    <div style="color: #dcdcaa;">def</div> <div style="color: #dcdcaa;">test_calculate_total_valid_items</div>(<div style="color: #9cdcfe;">self</div>):
+        <div style="color: #569cd6;">"""Test calculation with valid items."""</div>
+        items = [<div style="color: #9cdcfe;">self</div>.mock_item]
+        result = calculate_total(items)
+        <div style="color: #9cdcfe;">self</div>.assertEqual(result, <div style="color: #b5cea8;">21.00</div>)
+    
+    <div style="color: #dcdcaa;">def</div> <div style="color: #dcdcaa;">test_calculate_total_empty_list</div>(<div style="color: #9cdcfe;">self</div>):
+        <div style="color: #569cd6;">"""Test calculation with empty list."""</div>
+        result = calculate_total([])
+        <div style="color: #9cdcfe;">self</div>.assertEqual(result, <div style="color: #b5cea8;">0.0</div>)
+    
+    <div style="color: #dcdcaa;">def</div> <div style="color: #dcdcaa;">test_calculate_total_none_input</div>(<div style="color: #9cdcfe;">self</div>):
+        <div style="color: #569cd6;">"""Test calculation with None input."""</div>
+        result = calculate_total(<div style="color: #569cd6;">None</div>)
+        <div style="color: #9cdcfe;">self</div>.assertEqual(result, <div style="color: #b5cea8;">0.0</div>)
+    
+    <div style="color: #dcdcaa;">def</div> <div style="color: #dcdcaa;">test_calculate_total_missing_attributes</div>(<div style="color: #9cdcfe;">self</div>):
+        <div style="color: #569cd6;">"""Test with items missing price or quantity."""</div>
+        invalid_item = Mock()
+        <div style="color: #c586c0;">del</div> invalid_item.price  <div style="color: #569cd6;"># Remove price attribute</div>
+        items = [invalid_item]
+        result = calculate_total(items)
+        <div style="color: #9cdcfe;">self</div>.assertEqual(result, <div style="color: #b5cea8;">0.0</div>)
+    
+    <div style="color: #dcdcaa;">def</div> <div style="color: #dcdcaa;">test_calculate_total_invalid_types</div>(<div style="color: #9cdcfe;">self</div>):
+        <div style="color: #569cd6;">"""Test with invalid data types."""</div>
+        invalid_item = Mock()
+        invalid_item.price = <div style="color: #ce9178;">"invalid"</div>
+        invalid_item.quantity = <div style="color: #ce9178;">"also_invalid"</div>
+        items = [invalid_item]
+        result = calculate_total(items)
+        <div style="color: #9cdcfe;">self</div>.assertEqual(result, <div style="color: #b5cea8;">0.0</div>)
+    
+    <div style="color: #dcdcaa;">def</div> <div style="color: #dcdcaa;">test_calculate_total_multiple_items</div>(<div style="color: #9cdcfe;">self</div>):
+        <div style="color: #569cd6;">"""Test calculation with multiple items."""</div>
+        item1 = Mock()
+        item1.price = <div style="color: #b5cea8;">5.00</div>
+        item1.quantity = <div style="color: #b5cea8;">3</div>
+        
+        item2 = Mock()
+        item2.price = <div style="color: #b5cea8;">12.50</div>
+        item2.quantity = <div style="color: #b5cea8;">2</div>
+        
+        items = [item1, item2]
+        result = calculate_total(items)
+        <div style="color: #9cdcfe;">self</div>.assertEqual(result, <div style="color: #b5cea8;">40.00</div>)  <div style="color: #569cd6;"># 15.00 + 25.00</div>
+
+<div style="color: #c586c0;">if</div> <div style="color: #dcdcaa;">__name__</div> == <div style="color: #ce9178;">'__main__'</div>:
+    unittest.main()
+</div>
+
+<div style="margin-top: 20px;">
+<strong>🎯 TEST COVERAGE:</strong>
+• Happy path testing (valid inputs)
+• Edge cases (empty lists, None values)
+• Error conditions (invalid data types)
+• Boundary testing (multiple items)
+• Integration testing scenarios
+
+<strong>🚀 ADDITIONAL TEST RECOMMENDATIONS:</strong>
+• Performance testing with large datasets
+• Stress testing with extreme values
+• Mock external dependencies if any
+• Test threading/concurrency if applicable
+</div>`;
+            }
+            
+            output.innerHTML = result;
+        }
+
+        async function processAssistant() {
+            const loading = document.getElementById('assistant-loading');
+            const output = document.getElementById('assistant-output');
+            const mode = document.getElementById('assistant-mode').value;
+            const input = document.getElementById('assistant-input').value;
+            
+            if (!input.trim()) {
+                alert('Please enter your question or code.');
+                return;
+            }
+            
+            loading.style.display = 'block';
+            output.textContent = '';
+            
+            await new Promise(resolve => setTimeout(resolve, 2000));
+            
+            loading.style.display = 'none';
+            
+            let result = '';
+            
+            if (mode === 'qa') {
+                result = `
+<div style="color: #667eea; font-weight: bold; margin-bottom: 15px;">💬 AI ASSISTANT RESPONSE</div>
+
+<div style="background: #f8f9ff; padding: 20px; border-radius: 10px; border-left: 4px solid #667eea;">
+<strong>🤖 Your AI Development Assistant:</strong>
+
+OAuth2 authentication in Flask can be implemented using several approaches. Here's a comprehensive solution:
+
+<div style="background: #1e1e1e; color: #d4d4d4; padding: 15px; border-radius: 8px; margin: 15px 0; font-family: 'Courier New', monospace;">
+<div style="color: #569cd6;"># Install required packages:</div>
+<div style="color: #569cd6;"># pip install Flask-OAuthlib requests</div>
+
+<div style="color: #dcdcaa;">from</div> flask <div style="color: #dcdcaa;">import</div> Flask, redirect, url_for, session
+<div style="color: #dcdcaa;">from</div> flask_oauthlib.client <div style="color: #dcdcaa;">import</div> OAuth
+
+app = Flask(<div style="color: #ce9178;">__name__</div>)
+app.secret_key = <div style="color: #ce9178;">'your-secret-key'</div>
+oauth = OAuth(app)
+
+<div style="color: #569cd6;"># Configure Google OAuth</div>
+google = oauth.remote_app(
+    <div style="color: #ce9178;">'google'</div>,
+    consumer_key=<div style="color: #ce9178;">'your-google-client-id'</div>,
+    consumer_secret=<div style="color: #ce9178;">'your-google-client-secret'</div>,
+    request_token_params={
+        <div style="color: #ce9178;">'scope'</div>: <div style="color: #ce9178;">'email profile'</div>
+    },
+    base_url=<div style="color: #ce9178;">'https://www.googleapis.com/oauth2/v1/'</div>,
+    request_token_url=<div style="color: #569cd6;">None</div>,
+    access_token_method=<div style="color: #ce9178;">'POST'</div>,
+    access_token_url=<div style="color: #ce9178;">'https://accounts.google.com/o/oauth2/token'</div>,
+    authorize_url=<div style="color: #ce9178;">'https://accounts.google.com/o/oauth2/auth'</div>
+)
+
+<div style="color: #dcdcaa;">@app.route</div>(<div style="color: #ce9178;">'/login'</div>)
+<div style="color: #dcdcaa;">def</div> <div style="color: #dcdcaa;">login</div>():
+    <div style="color: #c586c0;">return</div> google.authorize(callback=url_for(<div style="color: #ce9178;">'authorized'</div>, _external=<div style="color: #569cd6;">True</div>))
+
+<div style="color: #dcdcaa;">@app.route</div>(<div style="color: #ce9178;">'/logout'</div>)
+<div style="color: #dcdcaa;">def</div> <div style="color: #dcdcaa;">logout</div>():
+    session.pop(<div style="color: #ce9178;">'google_token'</div>, <div style="color: #569cd6;">None</div>)
+    <div style="color: #c586c0;">return</div> redirect(url_for(<div style="color: #ce9178;">'index'</div>))
+
+<div style="color: #dcdcaa;">@app.route</div>(<div style="color: #ce9178;">'/oauth-authorized'</div>)
+<div style="color: #dcdcaa;">def</div> <div style="color: #dcdcaa;">authorized</div>():
+    resp = google.authorized_response()
+    <div style="color: #c586c0;">if</div> resp <div style="color: #c586c0;">is</div> <div style="color: #569cd6;">None</div>:
+        <div style="color: #c586c0;">return</div> <div style="color: #ce9178;">'Access denied'</div>
+    
+    session[<div style="color: #ce9178;">'google_token'</div>] = (resp[<div style="color: #ce9178;">'access_token'</div>], <div style="color: #ce9178;">''</div>)
+    user_info = google.get(<div style="color: #ce9178;">'userinfo'</div>)
+    <div style="color: #c586c0;">return</div> <div style="color: #ce9178;">f'Hello {user_info.data["name"]}!'</div>
+</div>
+
+<strong>🔐 SECURITY BEST PRACTICES:</strong>
+• Store client secrets in environment variables
+• Use HTTPS in production
+• Implement proper session management
+• Add CSRF protection
+• Validate and sanitize all user inputs
+• Implement proper error handling
+
+<strong>📚 ALTERNATIVE APPROACHES:</strong>
+• Authlib (more modern, actively maintained)
+• Flask-Dance (simplified OAuth integration)
+• Custom JWT implementation
+• Integration with identity providers (Auth0, Firebase)
+
+<strong>🎯 NEXT STEPS:</strong>
+1. Set up Google OAuth credentials in Google Console
+2. Configure environment variables for secrets
+3. Implement user database integration
+4. Add role-based access control
+5. Test with different OAuth providers
+</div>`;
+            } else if (mode === 'documentation') {
+                result = `
+<div style="color: #667eea; font-weight: bold; margin-bottom: 15px;">📚 AUTO-GENERATED DOCUMENTATION</div>
+
+<div style="background: #f8f9ff; padding: 20px; border-radius: 10px; border-left: 4px solid #667eea;">
+<h3>UserManager Class Documentation</h3>
+
+<div style="background: #1e1e1e; color: #d4d4d4; padding: 15px; border-radius: 8px; margin: 15px 0; font-family: 'Courier New', monospace;">
+<div style="color: #dcdcaa;">class</div> <div style="color: #4ec9b0;">UserManager</div>:
+    <div style="color: #ce9178;">"""
+    A high-performance user management system with built-in caching.
+    
+    This class provides efficient user data retrieval and management
+    with automatic caching to reduce database load and improve response times.
+    
+    Attributes:
+        db (Database): Database connection instance
+        cache (dict): In-memory cache for user data
+    
+    Example:
+        >>> db = DatabaseConnection()
+        >>> user_manager = UserManager(db)
+        >>> user = user_manager.get_user(123)
+        >>> print(user.name)
+    """</div>
+</div>
+
+<strong>🏗️ CLASS OVERVIEW:</strong>
+The UserManager class implements a caching layer for user data management, providing optimized database access patterns and improved application performance.
+
+<strong>📋 METHOD DOCUMENTATION:</strong>
+
+<div style="background: #f0f4f8; padding: 15px; border-radius: 8px; margin: 10px 0;">
+<strong>__init__(self, db_connection)</strong>
+<br><strong>Purpose:</strong> Initialize the UserManager with a database connection
+<br><strong>Parameters:</strong>
+• db_connection (Database): Active database connection instance
+<br><strong>Returns:</strong> None
+<br><strong>Side Effects:</strong> Initializes empty cache dictionary
+</div>
+
+<div style="background: #f0f4f8; padding: 15px; border-radius: 8px; margin: 10px 0;">
+<strong>get_user(self, user_id)</strong>
+<br><strong>Purpose:</strong> Retrieve user data with automatic caching
+<br><strong>Parameters:</strong>
+• user_id (int): Unique identifier for the user
+<br><strong>Returns:</strong> User object or None if not found
+<br><strong>Caching Strategy:</strong> First checks cache, then database if needed
+<br><strong>Performance:</strong> O(1) for cached users, O(log n) for database queries
+</div>
+
+<strong>🔧 IMPLEMENTATION DETAILS:</strong>
+• Uses dictionary-based caching for O(1) lookup performance
+• Implements lazy loading pattern for memory efficiency
+• No cache invalidation strategy (consider adding TTL)
+• Thread-safety not implemented (add locks for concurrent access)
+
+<strong>⚠️ POTENTIAL IMPROVEMENTS:</strong>
+• Add cache size limits to prevent memory leaks
+• Implement cache TTL (Time To Live) for data freshness
+• Add error handling for database connection failures
+• Consider using Redis or Memcached for distributed caching
+• Add logging for debugging and monitoring
+
+<strong>🧪 USAGE EXAMPLES:</strong>
+• User authentication workflows
+• Profile data retrieval
+• Bulk user operations with caching benefits
+• API endpoints requiring fast user lookups
+
+<strong>🔒 SECURITY CONSIDERATIONS:</strong>
+• Ensure proper input validation for user_id parameter
+• Implement access control checks before data retrieval
+• Consider data sanitization for cached values
+• Add audit logging for sensitive operations
+</div>`;
+            } else if (mode === 'explanation') {
+                result = `
+<div style="color: #667eea; font-weight: bold; margin-bottom: 15px;">🎓 CODE EXPLANATION</div>
+
+<div style="background: #f8f9ff; padding: 20px; border-radius: 10px; border-left: 4px solid #667eea;">
+<strong>🔍 DETAILED CODE ANALYSIS:</strong>
+
+<div style="background: #fff3cd; border: 1px solid #ffeaa7; padding: 15px; border-radius: 8px; margin: 15px 0;">
+<strong>🎯 WHAT THIS CODE DOES:</strong>
+<br>This UserManager class implements a basic caching mechanism for user data retrieval. It acts as an intermediary between your application and the database, storing frequently accessed user information in memory to improve performance.
+</div>
+
+<strong>📋 LINE-BY-LINE BREAKDOWN:</strong>
+
+<div style="background: #f0f4f8; padding: 15px; border-radius: 8px; margin: 10px 0;">
+<strong>Line 1-3: Class Definition & Constructor</strong>
+<br><code>def __init__(self, db_connection):</code>
+<br>• Creates a new UserManager instance
+<br>• Stores the database connection for later use
+<br>• Initializes an empty dictionary to serve as cache storage
+</div>
+
+<div style="background: #f0f4f8; padding: 15px; border-radius: 8px; margin: 10px 0;">
+<strong>Line 6-7: Cache Hit Check</strong>
+<br><code>if user_id in self.cache:</code>
+<br>• First, check if user data is already in memory cache
+<br>• This is the "fast path" - if found, return immediately
+<br>• Avoids expensive database queries for frequently accessed users
+</div>
+
+<div style="background: #f0f4f8; padding: 15px; border-radius: 8px; margin: 10px 0;">
+<strong>Line 8-10: Database Query & Caching</strong>
+<br><code>user = self.db.query('SELECT * FROM users WHERE id = ?', user_id)</code>
+<br>• If not in cache, query the database using parameterized query (SQL injection safe)
+<br>• Store the result in cache for future requests
+<br>• Return the user data to the caller
+</div>
+
+<strong>🏗️ DESIGN PATTERNS USED:</strong>
+• **Cache-Aside Pattern**: Application manages the cache directly
+• **Lazy Loading**: Data is loaded only when requested
+• **Dependency Injection**: Database connection is injected via constructor
+
+<strong>⚡ PERFORMANCE CHARACTERISTICS:</strong>
+• **First Request**: O(log n) database query time
+• **Subsequent Requests**: O(1) cache lookup time
+• **Memory Usage**: Grows with unique users accessed
+• **Network**: Reduces database connection overhead
+
+<strong>🔧 ARCHITECTURAL BENEFITS:</strong>
+• Separation of concerns (caching logic isolated)
+• Testability (can mock database connection)
+• Scalability (reduces database load)
+• Maintainability (clear single responsibility)
+
+<strong>⚠️ LIMITATIONS & CONSIDERATIONS:</strong>
+• **Stale Data**: Cache never expires or updates
+• **Memory Growth**: No bounds on cache size
+• **Consistency**: Multiple instances have separate caches
+• **Error Handling**: No handling for database failures
+
+<strong>🚀 REAL-WORLD APPLICATIONS:</strong>
+• User profile systems in web applications
+• Authentication and authorization systems
+• Content management systems
+• E-commerce user account management
+• Social media platforms for user data retrieval
+</div>`;
+            } else if (mode === 'best-practices') {
+                result = `
+<div style="color: #667eea; font-weight: bold; margin-bottom: 15px;">✅ BEST PRACTICES REVIEW</div>
+
+<div style="background: #f8f9ff; padding: 20px; border-radius: 10px; border-left: 4px solid #667eea;">
+<strong>🔍 CODE QUALITY ASSESSMENT</strong>
+
+<div style="background: #d4edda; border: 1px solid #c3e6cb; padding: 15px; border-radius: 8px; margin: 15px 0;">
+<strong>✅ WHAT'S WORKING WELL:</strong>
+<br>• Clean, readable class structure
+<br>• Proper use of caching pattern
+<br>• Parameterized SQL queries (prevents SQL injection)
+<br>• Simple and focused responsibility
+</div>
+
+<div style="background: #fff3cd; border: 1px solid #ffeaa7; padding: 15px; border-radius: 8px; margin: 15px 0;">
+<strong>⚠️ AREAS FOR IMPROVEMENT:</strong>
+<br>• Missing error handling and logging
+<br>• No cache invalidation strategy
+<br>• Potential memory leaks with unbounded cache
+<br>• Not thread-safe for concurrent access
+</div>
+
+<strong>🛠️ RECOMMENDED IMPROVEMENTS:</strong>
+
+<div style="background: #1e1e1e; color: #d4d4d4; padding: 15px; border-radius: 8px; margin: 15px 0; font-family: 'Courier New', monospace;">
+<div style="color: #dcdcaa;">import</div> logging
+<div style="color: #dcdcaa;">import</div> threading
+<div style="color: #dcdcaa;">from</div> typing <div style="color: #dcdcaa;">import</div> Optional, Dict, Any
+<div style="color: #dcdcaa;">from</div> datetime <div style="color: #dcdcaa;">import</div> datetime, timedelta
+
+<div style="color: #dcdcaa;">class</div> <div style="color: #4ec9b0;">ImprovedUserManager</div>:
+    <div style="color: #ce9178;">"""Enhanced UserManager with better practices."""</div>
+    
+    <div style="color: #dcdcaa;">def</div> <div style="color: #dcdcaa;">__init__</div>(<div style="color: #9cdcfe;">self</div>, db_connection, cache_ttl: int = <div style="color: #b5cea8;">3600</div>, max_cache_size: int = <div style="color: #b5cea8;">1000</div>):
+        <div style="color: #9cdcfe;">self</div>.db = db_connection
+        <div style="color: #9cdcfe;">self</div>.cache: Dict[int, Dict[str, Any]] = {}
+        <div style="color: #9cdcfe;">self</div>.cache_ttl = cache_ttl
+        <div style="color: #9cdcfe;">self</div>.max_cache_size = max_cache_size
+        <div style="color: #9cdcfe;">self</div>._lock = threading.RLock()  <div style="color: #569cd6;"># Thread safety</div>
+        <div style="color: #9cdcfe;">self</div>.logger = logging.getLogger(<div style="color: #dcdcaa;">__name__</div>)
+    
+    <div style="color: #dcdcaa;">def</div> <div style="color: #dcdcaa;">get_user</div>(<div style="color: #9cdcfe;">self</div>, user_id: int) -> Optional[Any]:
+        <div style="color: #ce9178;">"""Get user with improved caching and error handling."""</div>
+        <div style="color: #c586c0;">with</div> <div style="color: #9cdcfe;">self</div>._lock:
+            <div style="color: #c586c0;">try</div>:
+                <div style="color: #569cd6;"># Check cache validity</div>
+                <div style="color: #c586c0;">if</div> <div style="color: #9cdcfe;">self</div>._is_cache_valid(user_id):
+                    <div style="color: #9cdcfe;">self</div>.logger.debug(<div style="color: #ce9178;">f"Cache hit for user {user_id}"</div>)
+                    <div style="color: #c586c0;">return</div> <div style="color: #9cdcfe;">self</div>.cache[user_id][<div style="color: #ce9178;">'data'</div>]
+                
+                <div style="color: #569cd6;"># Database query with error handling</div>
+                user = <div style="color: #9cdcfe;">self</div>._fetch_user_from_db(user_id)
+                
+                <div style="color: #c586c0;">if</div> user:
+                    <div style="color: #9cdcfe;">self</div>._cache_user(user_id, user)
+                    <div style="color: #9cdcfe;">self</div>._cleanup_cache()  <div style="color: #569cd6;"># Prevent memory leaks</div>
+                
+                <div style="color: #c586c0;">return</div> user
+                
+            <div style="color: #c586c0;">except</div> Exception <div style="color: #c586c0;">as</div> e:
+                <div style="color: #9cdcfe;">self</div>.logger.error(<div style="color: #ce9178;">f"Error fetching user {user_id}: {e}"</div>)
+                <div style="color: #c586c0;">return</div> <div style="color: #569cd6;">None</div>
+</div>
+
+<strong>🏆 BEST PRACTICES IMPLEMENTED:</strong>
+
+<div style="background: #f0f4f8; padding: 15px; border-radius: 8px; margin: 10px 0;">
+<strong>1. Error Handling & Logging</strong>
+<br>• Comprehensive try-catch blocks
+<br>• Structured logging for debugging
+<br>• Graceful degradation on failures
+</div>
+
+<div style="background: #f0f4f8; padding: 15px; border-radius: 8px; margin: 10px 0;">
+<strong>2. Thread Safety</strong>
+<br>• RLock for concurrent access protection
+<br>• Atomic cache operations
+<br>• Safe for multi-threaded applications
+</div>
+
+<div style="background: #f0f4f8; padding: 15px; border-radius: 8px; margin: 10px 0;">
+<strong>3. Memory Management</strong>
+<br>• TTL (Time To Live) for cache entries
+<br>• Maximum cache size limits
+<br>• Automatic cleanup of stale entries
+</div>
+
+<div style="background: #f0f4f8; padding: 15px; border-radius: 8px; margin: 10px 0;">
+<strong>4. Type Hints & Documentation</strong>
+<br>• Clear parameter and return types
+<br>• Comprehensive docstrings
+<br>• Self-documenting code structure
+</div>
+
+<strong>📊 ADDITIONAL RECOMMENDATIONS:</strong>
+• Add unit tests with mocking
+• Implement circuit breaker pattern for database failures
+• Consider async/await for I/O operations
+• Add metrics and monitoring
+• Implement cache warming strategies
+• Use connection pooling for database access
+</div>`;
+            }
+            
+            output.innerHTML = result;
+        }
+
+        // Initialize with sample data
+        document.addEventListener('DOMContentLoaded', function() {
+            // Add some sample text to requirements
+            const reqText = document.getElementById('requirements-text');
+            if (reqText) {
+                reqText.value = `Our e-commerce platform needs comprehensive user management functionality. Users should be able to register with email validation, login securely, and reset their passwords when needed. The platform must maintain persistent shopping carts that survive user sessions.
+
+We need an administrative interface for inventory management where admins can add, edit, and remove products. The system should track order statuses from placement to delivery and provide analytics on sales performance.
+
+Payment processing must be secure and support multiple payment methods including credit cards and digital wallets. Users should receive email notifications for order confirmations, shipping updates, and promotional offers.
+
+The platform should be responsive and work across desktop and mobile devices with fast loading times and intuitive navigation.`;
+            }
+        });
+    </script>
+</body>
+</html>
